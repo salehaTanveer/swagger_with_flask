@@ -3,29 +3,51 @@ from flask_restx import Resource, fields, Namespace
 # from . import hello_world
 
 hello_world_example = {'message': 'Hello World!'}
-hello_world = Namespace("step")
+book = Namespace("book")
 
 
-from .schemas import input_model, output_model
+from .schemas import *
 
 
-@hello_world.route('/')
-class HelloWorld(Resource):
+@book.route('/author/')
+class AuthorView(Resource):
     """
     Short view description for HelloWorld
     """
-    @hello_world.marshal_list_with(input_model, code=200)
+    @book.marshal_list_with(author_output_model, mask='token', code=200)
     # @hello_world.response(500, 'Internal Server error')
     def get(self):
         """
-        Hello world message endpoint
+        Get books author endpoint
         """
         return hello_world_example
 
-    @hello_world.marshal_list_with(output_model, code=200)
+    @book.marshal_list_with(author_input_model, code=200)
     def post(self):
         """
-        Hello world post endpoint
+        Add books author post endpoint
+        :return:
+        """
+        pass
+
+
+@book.route('/')
+class BookView(Resource):
+    """
+    Short view description for HelloWorld
+    """
+    @book.marshal_list_with(book_input_model, code=200)
+    # @hello_world.response(500, 'Internal Server error')
+    def get(self):
+        """
+        Get book endpoint
+        """
+        return hello_world_example
+
+    @book.marshal_list_with(book_output_model, code=200)
+    def post(self):
+        """
+        Add book post endpoint
         :return:
         """
         pass

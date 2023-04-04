@@ -12,8 +12,8 @@ def create_app():
               description='A test project with flask-restx.'
               )
 
-    from .api.v1.routes.initial_routes import hello_world
-    api.add_namespace(hello_world)
+    from .api.v1.routes.initial_routes import book as book_namespace
+    api.add_namespace(book_namespace)
 
     @app.route('/')
     def index():
